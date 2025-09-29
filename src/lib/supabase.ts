@@ -3,8 +3,8 @@ import { supabase as mockSupabase } from './mockSupabase'
 
 // Replace with your actual Supabase URL and anon key
 // In production, these should come from environment variables
-const supabaseUrl = (typeof process !== 'undefined' && process.env?.NEXT_PUBLIC_SUPABASE_URL) || 'https://your-project.supabase.co'
-const supabaseAnonKey = (typeof process !== 'undefined' && process.env?.NEXT_PUBLIC_SUPABASE_ANON_KEY) || 'your-anon-key-here'
+const supabaseUrl = (typeof process !== 'undefined' && process.env?.VITE_SUPABASE_URL) || 'https://your-project.supabase.co'
+const supabaseAnonKey = (typeof process !== 'undefined' && process.env?.VITE_SUPABASE_ANON_KEY) || 'your-anon-key-here'
 
 // Use mock Supabase if no real credentials are provided
 const isUsingMock = supabaseUrl === 'https://your-project.supabase.co' || supabaseAnonKey === 'your-anon-key-here'
@@ -80,49 +80,33 @@ export const signOut = async () => {
 
 // Database operations
 export const getNewsItems = async () => {
-  const query = supabase
+  return supabase
     .from('news_items')
     .select('*')
     .order('created_at', { ascending: false })
-  
-  return new Promise((resolve) => {
-    query.then(resolve)
-  })
 }
 
 export const getTrustMetrics = async () => {
-  const query = supabase
+  return supabase
     .from('trust_metrics')
     .select('*')
     .order('timestamp', { ascending: false })
     .limit(10)
-  
-  return new Promise((resolve) => {
-    query.then(resolve)
-  })
 }
 
 export const getUserProfiles = async () => {
-  const query = supabase
+  return supabase
     .from('user_profiles')
     .select('*')
     .order('trust_points', { ascending: false })
     .limit(10)
-  
-  return new Promise((resolve) => {
-    query.then(resolve)
-  })
 }
 
 export const getRumors = async () => {
-  const query = supabase
+  return supabase
     .from('rumors')
     .select('*')
     .order('created_at', { ascending: false })
-  
-  return new Promise((resolve) => {
-    query.then(resolve)
-  })
 }
 
 export const submitVerification = async (newsId: string, isVerified: boolean, userId: string) => {
